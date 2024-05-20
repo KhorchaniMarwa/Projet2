@@ -23,8 +23,8 @@ The Smart Home Monitoring and Control System is a web-based application designed
 
 ## Technologies Used
 - **Frontend**: HTML, CSS, JavaScript
-- **Microcontroller**: Arduino
-- **Sensors**: DHT11 (Temperature and Humidity sensor)
+- **Microcontroller**: ESP8266
+- **Sensors**: DHT11 (Temperature and Humidity sensor),MQ2
 - **Actuators**: LED, Buzzer, Ventilator (Fan)
 
 ## Hardware Requirements
