@@ -28,11 +28,12 @@ The Smart Home Monitoring and Control System is a web-based application designed
 - **Actuators**: LED, Buzzer, Ventilator (Fan)
 
 ## Hardware Requirements
-- Arduino board
+- ESP8266
+- MQ2 gaz sensor
 - DHT11 temperature and humidity sensor
 - LEDs
 - Buzzer
-- Fan or ventilator
+- ventilator
 - Connecting wires
 - Breadboard
 
