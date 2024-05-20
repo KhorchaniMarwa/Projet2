@@ -9,7 +9,6 @@
 6. [Installation](#installation)
 7. [Usage](#usage)
 8. [Contributing](#contributing)
-9. [License](#license)
 
 ## Project Overview
 The Smart Home Monitoring and Control System is a web-based application designed to monitor and control various home appliances. It provides real-time information about temperature and humidity, and allows users to control LEDs and a buzzer. The system is also equipped to automatically trigger a buzzer if humidity levels are high and activate a ventilator when the temperature exceeds a certain threshold.
@@ -47,3 +46,17 @@ The Smart Home Monitoring and Control System is a web-based application designed
    ```sh
    git clone https://github.com/yourusername/smart-home-system.git
    cd smart-home-system
+## Usage
+Monitor Environment:
+
+Visit the web interface to view real-time temperature and humidity data.
+Control Devices:
+
+Use the web controls to turn LEDs on or off.
+Manually activate the buzzer if needed.
+Automated Controls:
+
+The buzzer will sound automatically if humidity levels are too high.
+The ventilator will turn on automatically if the temperature exceeds a certain threshold.
+## Contributing
+Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure your code adheres to the project's coding standards and includes appropriate tests.
