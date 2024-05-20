@@ -1,0 +1,222 @@
+
+    <!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(45deg, #FFC700, #FFB300, #FF9100, #FF6F00, #FF6F00, #FF9100, #FFB300, #FFC700) no-repeat;
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333; /* Couleur de texte principale */
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 3rem;
+      color: #ffffff; /* Couleur du texte pour le titre */
+      text-align: center;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Ombre pour améliorer la lisibilité */
+    }
+    p {
+      font-size: 1.5rem;
+      color: #ffffff; /* Couleur du texte pour les paragraphes */
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Ombre pour améliorer la lisibilité */
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .fa {
+      animation: rotate 2s infinite linear;
+    }
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .units {
+      font-size: 1.2rem;
+    }
+    .dht-labels {
+      font-size: 1.5rem;
+      vertical-align: middle;
+      padding-bottom: 15px;
+    }
+    .data-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .data-container p {
+      flex: 1;
+      text-align: center;
+    }
+    .link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #ffffff; /* Couleur du texte pour le lien */
+      text-decoration: none;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Ombre pour améliorer la lisibilité */
+    }
+    .link:hover {
+      color: #FFC700; /* Couleur du texte au survol */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>HOUSE OF TAHA & MARWA</h1>
+    
+    <div class="data-container">
+      <button onclick="toggleLED('led1', 'on')">Turn LED1 Off</button>
+      <button onclick="toggleLED('led1', 'off')">Turn LED1 On</button>
+    </div>
+    
+    <div class="data-container">
+  <i class="fa fa-cloud" style="font-size:3.0rem;color:#f5a623;"></i>
+  <span class="dht-labels">Gas Value : </span>
+  <span id="GasValue">0</span>
+</div>
+<div class="data-container">
+  <i class="fa fa-bell-slash" style="font-size:3.0rem;color:#f54242;"></i>
+  <span class="dht-labels">Buffer State : </span>
+  <span id="BufferState">Active</span>
+</div>
+
+    <div class="data-container">
+      <button onclick="toggleLED('led2', 'on')">Turn LED2 Off</button>
+      <button onclick="toggleLED('led2', 'off')">Turn LED2 On</button>
+    </div>
+    <div class="data-container">
+      <i class="fa fa-thermometer-half" style="font-size:3.0rem;color:#62a1d3;"></i>
+      <span class="dht-labels">Temperature : </span>
+      <span id="TemperatureValue">0</span>
+      <sup class="units">&deg;C</sup>
+    </div>
+    <div class="data-container">
+      <i class="fa fa-tint" style="font-size:3.0rem;color:#75e095;"></i>
+      <span class="dht-labels">Humidity : </span>
+      <span id="HumidityValue">0</span>
+      <sup class="units">%</sup>
+    </div>
+    <div class="data-container">
+      <i class="far fa-clock" style="font-size:1.0rem;color:#e3a8c7;"></i>
+      <span style="font-size:1.0rem;">Time </span>
+      <span id="time" style="font-size:1.0rem;"></span>
+
+      <i class="far fa-calendar-alt" style="font-size:1.0rem;color:#f7dc68;"></i>
+      <span style="font-size:1.0rem;">Date </span>
+      <span id="date" style="font-size:1.0rem;"></span>
+   
+  <script>
+       setInterval(function() {
+      
+        getTemperatureData();
+        getHumidityData();
+      }, 2000); 
+      
+      setInterval(function() {
+       
+        Time_Date();
+      }, 1000); 
+      
+  function toggleLED(led, state) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/" + led + "?state=" + state, true);
+    xhttp.send();
+  }
+
+      function getTemperatureData() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("TemperatureValue").innerHTML =
+            this.responseText;
+          }
+        };
+        xhttp.open("GET", "readTemperature", true);
+        xhttp.send();
+      }
+
+      function getHumidityData() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("HumidityValue").innerHTML =
+          this.responseText;
+          }
+        };
+        xhttp.open("GET", "readHumidity", true);
+        xhttp.send();
+      }
+    
+
+      function Time_Date() {
+        var t = new Date();
+        document.getElementById("time").innerHTML = t.toLocaleTimeString();
+        var d = new Date();
+        const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday","Saturday"];
+        const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+        document.getElementById("date").innerHTML = dayNames[d.getDay()] + ", " + d.getDate() + "-" + monthNames[d.getMonth()] + "-" + d.getFullYear();
+      }
+
+
+ // Fonction pour obtenir les données du capteur MQ2
+  function getMQ2Data() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("GasValue").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "readMQ2", true);
+    xhttp.send();
+  }
+
+  // Fonction pour obtenir l'état du tampon
+  function getBufferState() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("BufferState").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "bufferState", true);
+    xhttp.send();
+  }
+
+ 
+  setInterval(getMQ2Data, 2000); 
+  setInterval(getBufferState, 5000); 
+  //
+
+
+
+  </script>
+</body>
+</html>
